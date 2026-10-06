@@ -1,0 +1,20 @@
+name: Gen Session Bot
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: gen-session
+  cancel-in-progress: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+      - run: pip install -r requirements.txt
+      - run: python gen_session_bot.py
